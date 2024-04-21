@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - TravelBloom</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-image: url('background-img.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #fff; /* Default text color */
+        }
+
+        nav {
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background color for the navigation bar */
+            padding: 10px 20px; /* Padding around the navigation items */
+            display: flex; /* Use flexbox layout */
+            justify-content: space-between; /* Space items evenly */
+            align-items: center; /* Center items vertically */
+            position: fixed; /* Fixed position so it stays at the top */
+            width: 100%; /* Full width */
+            z-index: 1000; /* Ensure navigation bar appears above other content */
+        }
+
+        nav ul {
+            list-style-type: none; /* Remove default list styles */
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 20px; /* Spacing between navigation items */
+        }
+
+        nav ul li:last-child {
+            margin-right: 0; /* Remove margin from the last navigation item */
+        }
+
+        nav ul li a {
+            color: #fff; /* Text color for navigation links */
+            text-decoration: none; /* Remove underline from links */
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline; /* Underline links on hover */
+        }
+
+        .container {
+            padding: 20px;
+            padding-top: 70px; /* Add space to avoid content being covered by the fixed navigation bar */
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        /* Style for the contact form */
+        .contact-form {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .contact-form input[type="text"],
+        .contact-form input[type="email"],
+        .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        .contact-form textarea {
+            height: 150px;
+        }
+
+        .contact-form button[type="submit"] {
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            background-color: #007bff; /* Background color for submit button */
+            color: #fff; /* Text color for submit button */
+            cursor: pointer;
+        }
+
+        .contact-form button[type="submit"]:hover {
+            background-color: #0056b3; /* Darker background color on hover */
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <ul>
+        <li><a href="home.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+    <h2 class="section-title">Contact Us</h2>
+    <div class="contact-form">
+        <form action="#" method="post"> <!-- Replace "#" with your form submission URL -->
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <textarea name="message" placeholder="Your Message" required></textarea>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

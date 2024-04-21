@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelBloom</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            color: #ffffff; /* Text color */
+        }
+
+        nav {
+            background-color: #333; /* Background color for the navigation bar */
+            padding: 10px 20px; /* Padding around the navigation items */
+            color: #fff; /* Text color for navigation items */
+            display: flex; /* Use flexbox layout */
+            justify-content: space-between; /* Space items evenly */
+            align-items: center; /* Center items vertically */
+        }
+
+        nav ul {
+            list-style-type: none; /* Remove default list styles */
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 20px; /* Spacing between navigation items */
+        }
+
+        nav ul li:last-child {
+            margin-right: 0; /* Remove margin from the last navigation item */
+        }
+
+        nav ul li a {
+            color: #fff; /* Text color for navigation links */
+            text-decoration: none; /* Remove underline from links */
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline; /* Underline links on hover */
+        }
+
+        #searchForm {
+            display: flex; /* Use flexbox layout for search form */
+            align-items: center; /* Center items vertically */
+        }
+
+        #searchInput {
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-right: 5px; /* Space between input field and buttons */
+        }
+
+        #searchInput:focus {
+            outline: none; /* Remove outline on focus */
+            border-color: #007bff; /* Change border color on focus */
+        }
+
+        #searchForm button {
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: #007bff; /* Background color for search button */
+            color: #fff; /* Text color for search button */
+            cursor: pointer;
+        }
+
+        #searchForm button:hover {
+            background-color: #0056b3; /* Darker background color on hover */
+        }
+
+        #searchForm button[type="button"] {
+            background-color: #6c757d; /* Background color for reset button */
+            margin-left: 5px; /* Space between search and reset buttons */
+        }
+
+        #searchForm button[type="button"]:hover {
+            background-color: #5a6268; /* Darker background color on hover */
+        }
+
+        .container {
+            padding: 50px;
+            text-align: center;
+        }
+
+        .title {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .subtitle {
+            font-size: 24px;
+            line-height: 1.5;
+        }
+
+        .recommendations {
+            margin-top: 50px;
+        }
+
+        .recommendation {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: #f9f9f9;
+        }
+
+        .recommendation h2 {
+            margin-top: 0;
+        }
+
+        .recommendation p {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <ul>
+        <li><a href="home.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+    </ul>
+    <form id="searchForm">
+        <input type="text" id="searchInput" placeholder="Enter keywords...">
+        <button type="submit">Search</button>
+        <button type="button" onclick="resetSearch()">Clear</button>
+    </form>
+</nav>
+
+<img src="background-img.jpg" alt="Background Image">
+<script>
+    // Function to reset the search
+    function resetSearch() {
+        document.getElementById("searchInput").value = "";
+        // Additional reset logic if needed
+    }
+</script>
+</body>
+</html>
+
+

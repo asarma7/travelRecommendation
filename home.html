@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelBloom - Home</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        nav {
+            background-color: #333; /* Background color for the navigation bar */
+            padding: 10px 20px; /* Padding around the navigation items */
+            color: #fff; /* Text color for navigation items */
+            display: flex; /* Use flexbox layout */
+            justify-content: space-between; /* Space items evenly */
+            align-items: center; /* Center items vertically */
+        }
+
+        nav ul {
+            list-style-type: none; /* Remove default list styles */
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 20px; /* Spacing between navigation items */
+        }
+
+        nav ul li:last-child {
+            margin-right: 0; /* Remove margin from the last navigation item */
+        }
+
+        nav ul li a {
+            color: #fff; /* Text color for navigation links */
+            text-decoration: none; /* Remove underline from links */
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline; /* Underline links on hover */
+        }
+
+        #searchForm {
+            display: flex; /* Use flexbox layout for search form */
+            align-items: center; /* Center items vertically */
+        }
+
+        #searchInput {
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-right: 5px; /* Space between input field and buttons */
+        }
+
+        #searchInput:focus {
+            outline: none; /* Remove outline on focus */
+            border-color: #007bff; /* Change border color on focus */
+        }
+
+        #searchForm button {
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: #007bff; /* Background color for search button */
+            color: #fff; /* Text color for search button */
+            cursor: pointer;
+        }
+
+        #searchForm button:hover {
+            background-color: #0056b3; /* Darker background color on hover */
+        }
+
+        #searchForm button[type="button"] {
+            background-color: #6c757d; /* Background color for reset button */
+            margin-left: 5px; /* Space between search and reset buttons */
+        }
+
+        #searchForm button[type="button"]:hover {
+            background-color: #5a6268; /* Darker background color on hover */
+        }
+
+        .container {
+            padding: 20px;
+            background-color: #f9f9f9; /* Background color for container */
+            padding-top: 70px; /* Add space to avoid content being covered by the fixed navigation bar */
+            text-align: center;
+            color: #fff;
+        }
+
+        .title {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .subtitle {
+            font-size: 24px;
+            line-height: 1.5;
+        }
+
+        .book-now-button {
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: none;
+            background-color: rgba(255, 255, 255, 0.3); /* Clear background color */
+            color: #fff; /* White text color */
+            cursor: pointer;
+            transition: background-color 0.3s; /* Smooth transition for background color change */
+        }
+
+        .book-now-button:hover {
+            background-color: rgba(255, 255, 255, 0.5); /* Lighter background color on hover */
+        }
+
+    </style>
+</head>
+<body>
+
+<nav>
+    <ul>
+        <li><a href="home.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+    </ul>
+    <form id="searchForm">
+        <input type="text" id="searchInput" placeholder="Enter keywords...">
+        <button type="submit">Search</button>
+        <button type="button" onclick="resetSearch()">Clear</button>
+    </form>
+</nav>
+<div class="container" style="background-image: url('background-img.jpg');">
+    <div class="title">Explore Dream Destination</div>
+    <div class="subtitle">
+        It encourages exploration of unfamiliar territories, embracing diverse cultures and landscapes, while pursuing the desired destination that captivates the heart and ignites a sense of wonder.
+    </div>
+    <button class="book-now-button">BOOK NOW</button>
+</div>
+<div id="recommendations">
+</div>
+
+<script>
+    // Function to reset the search
+    function resetSearch() {
+        document.getElementById("searchInput").value = "";
+        document.getElementById('recommendations').innerHTML = '';
+    }
+
+    async function handleSearch(event) {
+        event.preventDefault(); 
+        console.log("HANDLE SEARCH CALLED");
+        const response = await fetch('travel_recommendation_api.json');
+        const data = await response.json();
+        console.log("DATA: ", data)
+        const keyword = document.getElementById('searchInput').value.trim().toLowerCase();
+        console.log("keyword", keyword)
+        let recommendations = [];
+        if (keyword.includes('beach')) {
+            recommendations = data.beaches;
+        } else if (keyword.includes('temple')) {
+            recommendations = data.temples;
+        } else if (keyword.includes('country')) {
+            recommendations = data.countries;
+        }
+
+        displayRecommendations(recommendations);
+    }
+
+    // Function to display recommendations
+    function displayRecommendations(recommendations) {
+        // Clear previous recommendations
+        document.getElementById('recommendations').innerHTML = '';
+
+        // Loop through recommendations and display each one
+        recommendations.forEach(recommendation => {
+            // Create elements for the recommendation
+            const container = document.createElement('div');
+            container.classList.add('recommendation');
+
+            const image = document.createElement('img');
+            image.src = recommendation.imageUrl;
+            image.alt = recommendation.name;
+
+            const name = document.createElement('h3');
+            name.textContent = recommendation.name;
+
+            const description = document.createElement('p');
+            description.textContent = recommendation.description;
+
+            // Append elements to the container
+            container.appendChild(image);
+            container.appendChild(name);
+            container.appendChild(description);
+
+            // Append container to the recommendations section
+            document.getElementById('recommendations').appendChild(container);
+        });
+    }
+
+    // Add event listener to the form for search button click
+    document.getElementById('searchForm').addEventListener('submit', handleSearch);
+</script>
+
+</body>
+</html>
