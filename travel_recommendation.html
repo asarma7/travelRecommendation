@@ -3,15 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TravelBloom</title>
+    <title>TravelBloom - Home</title>
     <style>
         body {
             margin: 0;
             padding: 0;
-            background-size: cover;
-            background-position: center;
             font-family: Arial, sans-serif;
-            color: #ffffff; /* Text color */
         }
 
         nav {
@@ -87,8 +84,11 @@
         }
 
         .container {
-            padding: 50px;
+            padding: 20px;
+            background-color: #f9f9f9; /* Background color for container */
+            padding-top: 70px; /* Add space to avoid content being covered by the fixed navigation bar */
             text-align: center;
+            color: #fff;
         }
 
         .title {
@@ -101,25 +101,20 @@
             line-height: 1.5;
         }
 
-        .recommendations {
-            margin-top: 50px;
+        .book-now-button {
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: none;
+            background-color: rgba(255, 255, 255, 0.3); /* Clear background color */
+            color: #fff; /* White text color */
+            cursor: pointer;
+            transition: background-color 0.3s; /* Smooth transition for background color change */
         }
 
-        .recommendation {
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 20px;
-            margin-bottom: 20px;
-            background-color: #f9f9f9;
+        .book-now-button:hover {
+            background-color: rgba(255, 255, 255, 0.5); /* Lighter background color on hover */
         }
 
-        .recommendation h2 {
-            margin-top: 0;
-        }
-
-        .recommendation p {
-            margin-bottom: 10px;
-        }
     </style>
 </head>
 <body>
@@ -136,16 +131,77 @@
         <button type="button" onclick="resetSearch()">Clear</button>
     </form>
 </nav>
+<div class="container" style="background-image: url('background-img.jpg');">
+    <div class="title">Explore Dream Destination</div>
+    <div class="subtitle">
+        It encourages exploration of unfamiliar territories, embracing diverse cultures and landscapes, while pursuing the desired destination that captivates the heart and ignites a sense of wonder.
+    </div>
+    <button class="book-now-button">BOOK NOW</button>
+</div>
+<div id="recommendations">
+</div>
 
-<img src="background-img.jpg" alt="Background Image">
 <script>
     // Function to reset the search
     function resetSearch() {
         document.getElementById("searchInput").value = "";
-        // Additional reset logic if needed
+        document.getElementById('recommendations').innerHTML = '';
     }
+
+    async function handleSearch(event) {
+        event.preventDefault(); 
+        console.log("HANDLE SEARCH CALLED");
+        const response = await fetch('travel_recommendation_api.json');
+        const data = await response.json();
+        console.log("DATA: ", data)
+        const keyword = document.getElementById('searchInput').value.trim().toLowerCase();
+        console.log("keyword", keyword)
+        let recommendations = [];
+        if (keyword.includes('beach')) {
+            recommendations = data.beaches;
+        } else if (keyword.includes('temple')) {
+            recommendations = data.temples;
+        } else if (keyword.includes('country')) {
+            recommendations = data.countries;
+        }
+
+        displayRecommendations(recommendations);
+    }
+
+    // Function to display recommendations
+    function displayRecommendations(recommendations) {
+        // Clear previous recommendations
+        document.getElementById('recommendations').innerHTML = '';
+
+        // Loop through recommendations and display each one
+        recommendations.forEach(recommendation => {
+            // Create elements for the recommendation
+            const container = document.createElement('div');
+            container.classList.add('recommendation');
+
+            const image = document.createElement('img');
+            image.src = recommendation.imageUrl;
+            image.alt = recommendation.name;
+
+            const name = document.createElement('h3');
+            name.textContent = recommendation.name;
+
+            const description = document.createElement('p');
+            description.textContent = recommendation.description;
+
+            // Append elements to the container
+            container.appendChild(image);
+            container.appendChild(name);
+            container.appendChild(description);
+
+            // Append container to the recommendations section
+            document.getElementById('recommendations').appendChild(container);
+        });
+    }
+
+    // Add event listener to the form for search button click
+    document.getElementById('searchForm').addEventListener('submit', handleSearch);
 </script>
+
 </body>
 </html>
-
-
